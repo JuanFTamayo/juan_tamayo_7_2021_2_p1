@@ -5,6 +5,7 @@ import 'package:parcialjuantamayo/components/loader.dart';
 import 'package:parcialjuantamayo/helpers/constans.dart';
 import 'package:http/http.dart' as http;
 import 'package:parcialjuantamayo/models/meme.dart';
+import 'package:parcialjuantamayo/screens/memedetail_screen.dart';
 
 class MemeScreen extends StatefulWidget {
   const MemeScreen({ Key? key }) : super(key: key);
@@ -40,12 +41,12 @@ class _MemeScreenState extends State<MemeScreen> {
         return Card(
           child: InkWell(
             onTap: () {
-             /* Navigator.push(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => DetailScreen(
-                            anime: e,
-                          )));*/
+                      builder: (context) => DetailMeme(
+                            meme: e,
+                          )));
             },
             child: Container(
               padding: const EdgeInsets.all(10),
@@ -56,7 +57,7 @@ class _MemeScreenState extends State<MemeScreen> {
                   /*ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Image.network(
-                      e.animeImg,
+                      e.submissionUrl,
                       width: 50,
                     ),
                   ),*/
