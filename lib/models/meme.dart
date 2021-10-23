@@ -1,33 +1,41 @@
-import 'package:parcialjuantamayo/models/data.dart';
+class Meme {
+  String submissionId='';
+  String submissionUrl='';
+  String submissionTitle='';
+  String permalink='';
+  String author='';
+  String created='';
+  String timestamp='';
 
-class meme {
-  int total=0;
-  int count=0;
-  List<Data> data=[];
-
-  meme({
-    required this.total,
-    required this.count,
-    required this.data
+  Meme({
+      required this.submissionId,
+      required this.submissionUrl,
+      required this.submissionTitle,
+      required this.permalink,
+      required this.author,
+      required this.created,
+      required this.timestamp
   });
 
-  meme.fromJson(Map<String, dynamic> json) {
-    total = json['total'];
-    count = json['count'];
-    if (json['data'] != null) {
-      data = [];
-      json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
-      });
-    }
+  Meme.fromJson(Map<String, dynamic> json) {
+    submissionId = json['submission_id'];
+    submissionUrl = json['submission_url'];
+    submissionTitle = json['submission_title'];
+    permalink = json['permalink'];
+    author = json['author'];
+    created = json['created'];
+    timestamp = json['timestamp'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total'] = this.total;
-    data['count'] = this.count;
-    data['data'] = this.data.map((v) => v.toJson()).toList();
-    
+    data['submission_id'] = this.submissionId;
+    data['submission_url'] = this.submissionUrl;
+    data['submission_title'] = this.submissionTitle;
+    data['permalink'] = this.permalink;
+    data['author'] = this.author;
+    data['created'] = this.created;
+    data['timestamp'] = this.timestamp;
     return data;
   }
 }
