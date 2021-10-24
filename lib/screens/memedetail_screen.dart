@@ -43,12 +43,89 @@ class _DetailMemeState extends State<DetailMeme> {
                 ],
               ),
             ),
-          ]
+            memeList()
+          ],
         ),
     );
   }
 
- 
+  Widget memeList(){
+    return Expanded(
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        children: [
+          
+          Card(
+          child: Flexible(
+          child: Container(
+          margin: EdgeInsets.all(20),
+          padding: EdgeInsets.all(10),
+          color: Color(0xFF12B0E8),
+          child: Column(
+            children: <Widget>[
+              Text('Nombre:',
+               style: const TextStyle(
+               color: Color(0xFF000000),
+               fontSize: 20,
+               fontWeight: FontWeight.bold
+               )
+               ),
+              SizedBox(height: 18,),
+              Text('${widget.meme.submissionTitle}',
+               style: const TextStyle(color: Color(0xFF000000),
+                fontSize: 18,)),
+                SizedBox(height: 5,),
+                Text('Autor:',
+               style: const TextStyle(
+               color: Color(0xFF000000),
+               fontSize: 20,
+               fontWeight: FontWeight.bold
+               )
+               ),
+              SizedBox(height: 18,),
+              Text('${widget.meme.author}',
+               style: const TextStyle(color: Color(0xFF000000),
+                fontSize: 18,)),
+                 SizedBox(height: 5,),
+                Text('Fecha de creacion:',
+               style: const TextStyle(
+               color: Color(0xFF000000),
+               fontSize: 20,
+               fontWeight: FontWeight.bold
+               )
+               ),
+              SizedBox(height: 18,),
+              Text('${widget.meme.created}',
+               style: const TextStyle(color: Color(0xFF000000),
+                fontSize: 18,)),
+                SizedBox(height: 5,),
+                Text('tiempo:',
+               style: const TextStyle(
+               color: Color(0xFF000000),
+               fontSize: 20,
+               fontWeight: FontWeight.bold
+               )
+               ),
+              SizedBox(height: 18,),
+              Text('${widget.meme.timestamp}',
+               style: const TextStyle(color: Color(0xFF000000),
+                fontSize: 18,)),
+            ],
+            
+          ),
+         ),
+
+         ),
+        ),
+      
+          
+        
+        ]
+      ),
+    );
+    
+  }
 
   void _getMemeDetail() async {
     var url = Uri.parse(Constans.apiUrl + '/' + widget.meme.submissionTitle);

@@ -16,6 +16,8 @@ class MemeScreen extends StatefulWidget {
 
 class _MemeScreenState extends State<MemeScreen> {
   List<Meme> list= [];
+  List<Meme> filter= [];
+  bool searched= false;
   bool loader = false;
   @override
   void initState() {
