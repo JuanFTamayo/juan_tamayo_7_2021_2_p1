@@ -30,10 +30,7 @@ class _MemeScreenState extends State<MemeScreen> {
     );
   }
 
-  Widget _logo() {
-    return Image(
-      image: AssetImage('assets/dogo.png'));
-  }
+  
 
   Widget _author() {
     return ListView(
