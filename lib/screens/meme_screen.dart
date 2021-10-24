@@ -30,15 +30,60 @@ class _MemeScreenState extends State<MemeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-      body: loader? LoaderComponent(text: 'cargando...',): _author(),
+      body: loader?
+       LoaderComponent(text: 'cargando...',)
+       : _content(),
     );
   }
 
-  
+  Widget _content(){
+    return Scaffold(
+      appBar: AppBar(
+        title: !searched
+            ? Text('Memes')
+            : TextField(
+                onChanged: (value) {
+                  filterName(value);
+                },
+                
+                decoration: const InputDecoration(
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    hintText: "Encuentra tu anime",
+                    hintStyle: TextStyle(color: Colors.white)),
+              ),
+        actions: [
+          searched
+              ? IconButton(
+                  icon: const Icon(Icons.cancel),
+                  onPressed: () {
+                    setState(() {
+                      searched = false;
+                      filter = list;
+                    });
+                  },
+                )
+              : IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    setState(() {
+                      searched = true;
+                    });
+                  },
+                )
+        ],
+        backgroundColor: const Color(0xFF12B0E8),
+      ),
+      
+      body: _author(),
+    );
+  }
 
   Widget _author() {
     return ListView(
-      children: list.map((e) {
+      children: filter.map((e) {
         return Card(
           child: Flexible(
           child: InkWell(
@@ -82,6 +127,16 @@ class _MemeScreenState extends State<MemeScreen> {
         );
       }).toList(),
     );
+  }
+
+void filterName(value) {
+    setState(() {
+      filter = list
+          .where((element) => element.submissionTitle
+              .toLowerCase()
+              .contains(value.toString().toLowerCase()))
+          .toList();
+    });
   }
 
   void getdata() async {
