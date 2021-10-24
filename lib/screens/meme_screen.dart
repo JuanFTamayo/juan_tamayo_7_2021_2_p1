@@ -51,7 +51,7 @@ class _MemeScreenState extends State<MemeScreen> {
                       Icons.search,
                       color: Colors.white,
                     ),
-                    hintText: "Encuentra tu anime",
+                    hintText: "filtrar por meme",
                     hintStyle: TextStyle(color: Colors.white)),
               ),
         actions: [
@@ -171,6 +171,7 @@ void filterName(value) {
       for (var item in decodedJson['data']) {
         list.add(Meme.fromJson(item));
       }
+      filter=list;
     }
     setState(() {
       loader = false;
