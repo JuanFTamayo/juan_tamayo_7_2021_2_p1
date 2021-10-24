@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:parcialjuantamayo/components/loader.dart';
 import 'package:parcialjuantamayo/helpers/constans.dart';
@@ -38,6 +40,7 @@ class _MemeScreenState extends State<MemeScreen> {
     return ListView(
       children: list.map((e) {
         return Card(
+          child: Flexible(
           child: InkWell(
             onTap: () {
               Navigator.push(
@@ -47,12 +50,20 @@ class _MemeScreenState extends State<MemeScreen> {
                             meme: e,
                           )));
             },
+            
             child: Container(
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.all(10),
               child: Row(
+                
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Flexible(
+                    child: Text(
+                    e.submissionTitle,
+                      
+                    style: const TextStyle(fontSize: 15),
+                  ),),
                   /*ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Image.network(
@@ -60,15 +71,14 @@ class _MemeScreenState extends State<MemeScreen> {
                       width: 50,
                     ),
                   ),*/
-                  Text(
-                    e.submissionTitle,
-                    style: const TextStyle(fontSize: 15),
-                  ),
+                  
                   const Icon(Icons.arrow_forward_ios),
                 ],
               ),
             ),
           ),
+          ),
+          
         );
       }).toList(),
     );
@@ -78,6 +88,20 @@ class _MemeScreenState extends State<MemeScreen> {
     setState(() {
       loader= true;
     });
+    var connecResult = await Connectivity().checkConnectivity();
+    if (connecResult == ConnectivityResult.none) {
+      setState(() {
+        loader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'ERROR!',
+          message: 'Verifica tu conexion a internet!',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar')
+          ]);
+      return;
+    }
     var url = Uri.parse(Constans.apiUrl);
     var response = await http.get(
       url,

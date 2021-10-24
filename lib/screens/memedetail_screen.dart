@@ -1,3 +1,5 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:parcialjuantamayo/helpers/constans.dart';
@@ -13,6 +15,7 @@ class DetailMeme extends StatefulWidget {
 }
 
 class _DetailMemeState extends State<DetailMeme> {
+  bool loader=false;
   @override
   void initState() {
     _getMemeDetail();
@@ -128,6 +131,23 @@ class _DetailMemeState extends State<DetailMeme> {
   }
 
   void _getMemeDetail() async {
+    setState(() {
+        loader = true;
+      });
+    var connecResult = await Connectivity().checkConnectivity();
+    if (connecResult == ConnectivityResult.none) {
+      setState(() {
+        loader = false;
+      });
+      await showAlertDialog(
+          context: context,
+          title: 'ERROR!',
+          message: 'Verifica tu conexion a internet!',
+          actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar')
+          ]);
+      return;
+    }
     var url = Uri.parse(Constans.apiUrl + '/' + widget.meme.submissionTitle);
     var response = await http.get(
       url,
@@ -136,6 +156,8 @@ class _DetailMemeState extends State<DetailMeme> {
         'accept': 'application/json'
       },
     );
-    
+    setState(() {
+        loader = false;
+      });
   }
 }
